@@ -2,9 +2,12 @@ namespace FormBuilder.Entities;
 
 public class InputEntity : EntityBase
 {
-    public string Name { get; set; } = default!;
-    public string DataType { get; set; } = default!;
+    public required string Name { get; set; }
+    public required string DataType { get; set; }
     public bool Required { get; set; }
-    public Guid FormStructureId { get; set; }
-    public FormStructureEntity FormStructureEntity { get; set; } = new();
+
+    public ICollection<FormStructureInputEntity> FormStructureInputs { get; set; } =
+        new List<FormStructureInputEntity>();
+
+    public ICollection<FormStructureEntity> FormStructures { get; set; } = new List<FormStructureEntity>();
 }
