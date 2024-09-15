@@ -10,7 +10,7 @@ Form Builder permite crear formularios de manera dinámica.
 
 Para ejecutar el proyecto utilizando Docker Compose, siga estos pasos:
 
-1. Clone el repositorio del proyecto:
+Clone el repositorio del proyecto:
    
 [source,bash]
 ----
@@ -18,19 +18,19 @@ git clone https://github.com/vfred0/form-builder-backend.git
 cd form-builder-backend
 ----
 
-2. Ejecute el siguiente comando para iniciar los servicios:
+Ejecute el siguiente comando para iniciar los servicios:
    
 [source,bash]
 ----
-docker-compose up -d --build
+docker compose up -d --build
 ----
 
-5. Una vez que los contenedores estén en funcionamiento, podrá acceder a la aplicación a través de su navegador web en `http://localhost:8080`, y ver la documentación de la API en `http://localhost:8080/swagger/index.html`.
+Una vez que los contenedores estén en funcionamiento, podrá acceder a la aplicación a través de su navegador web en `http://localhost:8080`, y ver la documentación de la API en `http://localhost:8080/swagger/index.html`.
 
-6. Para detener los servicios, ejecute:
+Para detener los servicios, ejecute:
    
 [source,bash]
 ----
-docker-compose down
+docker compose down
 ----
 
