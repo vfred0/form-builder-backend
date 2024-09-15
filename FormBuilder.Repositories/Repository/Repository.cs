@@ -7,27 +7,27 @@ namespace FormBuilder.Repositories.Repository;
 public abstract class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity>
     where TEntity : EntityBase
 {
-    public async Task<ICollection<TEntity>> GetAsync()
-    {
-        return await dbContext.Set<TEntity>()
-            .AsNoTracking()
-            .IgnoreQueryFilters()
-            .ToListAsync();
-    }
+    // public async Task<ICollection<TEntity>> GetAsync()
+    // {
+    //     return await dbContext.Set<TEntity>()
+    //         .AsNoTracking()
+    //         .IgnoreQueryFilters()
+    //         .ToListAsync();
+    // }
 
     public virtual async Task<TEntity?> GetAsync(string id)
     {
         return await dbContext.Set<TEntity>()
             .FindAsync(id);
     }
-
-    public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate)
-    {
-        return await dbContext.Set<TEntity>()
-            .Where(predicate)
-            .AsNoTracking()
-            .ToListAsync();
-    }
+    //
+    // public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate)
+    // {
+    //     return await dbContext.Set<TEntity>()
+    //         .Where(predicate)
+    //         .AsNoTracking()
+    //         .ToListAsync();
+    // }
 
     public async Task<ICollection<TEntity>> GetAsync<TKey>(Expression<Func<TEntity, bool>> predicate,
         Expression<Func<TEntity, TKey>> orderBy)
@@ -51,11 +51,7 @@ public abstract class Repository<TEntity>(DbContext dbContext) : IRepository<TEn
     {
         var item = await GetAsync(id);
 
-        if (item is not null)
-        {
-            item.Status = false;
-            await UpdateAsync();
-        }
+        if (item is not null) await UpdateAsync();
     }
 
     public virtual async Task UpdateAsync()
