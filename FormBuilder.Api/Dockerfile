@@ -20,23 +20,4 @@ RUN dotnet publish "FormBuilder.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-# Install EF Core tools
-RUN dotnet tool install --global dotnet-ef
-
-# Add EF Core tools to PATH
-ENV PATH="${PATH}:/root/.dotnet/tools"
-
-# Copy migration files
-COPY ["FormBuilder.Api/Migrations", "/app/Migrations"]
-COPY ["FormBuilder.Persistence", "/src/FormBuilder.Persistence"]
-COPY ["FormBuilder.Entities", "/src/FormBuilder.Entities"]
-
-# Run migrations
-RUN dotnet ef database update
-
-# Seed data
-COPY ["FormBuilder.Api/Migrations.cs", "/app/"]
-RUN dotnet run --project FormBuilder.Api.csproj -- seed-data
-
-
 ENTRYPOINT ["dotnet", "FormBuilder.Api.dll"]
