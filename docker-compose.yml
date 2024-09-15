@@ -3,7 +3,7 @@ services:
   backend:
     image: form-builder/backend:latest
     build:
-        context: ../
+        context: .
         dockerfile: FormBuilder.Api/Dockerfile
     container_name: form-builder-backend
     ports:
