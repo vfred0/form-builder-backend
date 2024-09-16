@@ -42,9 +42,9 @@ public class InputService(IInputRepository inputRepository, IMapper mapper) : II
         return response;
     }
 
-    public async Task<GenericBaseResponseDto<Guid>> AddAsync(InputRequestDto inputRequestDto)
+    public async Task<GenericBaseResponseDto<string>> AddAsync(InputRequestDto inputRequestDto)
     {
-        var response = new GenericBaseResponseDto<Guid>();
+        var response = new GenericBaseResponseDto<string>();
         try
         {
             response.Data = await inputRepository.AddAsync(mapper.Map<InputEntity>(inputRequestDto));

@@ -24,6 +24,4 @@ public class FormStructureRepository(ApplicationDbContext dbContext)
             .AsNoTracking()
             .ToListAsync();
     }
-
-    
 }

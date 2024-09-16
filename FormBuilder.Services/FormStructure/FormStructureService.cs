@@ -43,9 +43,9 @@ public class FormStructureService(IFormStructureRepository formStructureReposito
         return response;
     }
 
-    public async Task<GenericBaseResponseDto<Guid>> AddAsync(FormStructureRequestDto formStructureRequestDto)
+    public async Task<GenericBaseResponseDto<string>> AddAsync(FormStructureRequestDto formStructureRequestDto)
     {
-        var response = new GenericBaseResponseDto<Guid>();
+        var response = new GenericBaseResponseDto<string>();
         try
         {
             response.Data =

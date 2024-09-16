@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using FormBuilder.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +12,7 @@ public abstract class Repository<TEntity>(DbContext dbContext) : IRepository<TEn
             .FindAsync(id);
     }
 
-    public virtual async Task<Guid> AddAsync(TEntity entity)
+    public virtual async Task<string> AddAsync(TEntity entity)
     {
         await dbContext.Set<TEntity>()
             .AddAsync(entity);
@@ -25,7 +24,11 @@ public abstract class Repository<TEntity>(DbContext dbContext) : IRepository<TEn
     {
         var item = await GetAsync(id);
 
-        if (item is not null) await UpdateAsync();
+        if (item != null)
+        {
+            dbContext.Set<TEntity>().Remove(item);
+            await dbContext.SaveChangesAsync();
+        }
     }
 
     public virtual async Task UpdateAsync()

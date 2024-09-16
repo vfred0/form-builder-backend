@@ -12,7 +12,8 @@ public static class MigrationsConfiguration
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         context.Database.Migrate();
         context.Database.EnsureCreated();
-        SeedData(context);
+
+        if (!context.Set<FormStructureEntity>().Any()) SeedData(context);
     }
 
     private static void SeedData(ApplicationDbContext context)
