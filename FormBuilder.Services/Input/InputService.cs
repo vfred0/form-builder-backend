@@ -69,9 +69,8 @@ public class InputService(IInputRepository inputRepository, IMapper mapper) : II
                 response.ErrorMessage = $"El input con el id {id} no fue encontrado";
                 return response;
             }
-
-            mapper.Map(inputRequestDto, data);
-            await inputRepository.UpdateAsync();
+            // mapper.Map(inputRequestDto, data);
+            await inputRepository.UpdateAsync(id, inputRequestDto);
             response.Success = true;
         }
         catch (Exception ex)

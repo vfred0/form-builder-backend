@@ -10,5 +10,4 @@ public interface IFormStructureService
     Task<GenericBaseResponseDto<string>> AddAsync(FormStructureRequestDto formStructureRequestDto);
     Task<BaseResponse> UpdateAsync(string id, FormStructureRequestDto formStructureRequestDto);
     Task<BaseResponse> DeleteAsync(string id);
-    Task<BaseResponse> AddInputAsync(FormStructureInputRequestDto formStructureInput);
 }

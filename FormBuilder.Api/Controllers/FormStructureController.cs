@@ -42,11 +42,5 @@ public class FormStructureController(IFormStructureService formStructureService)
         var response = await formStructureService.DeleteAsync(id);
         return response.Success ? Ok(response) : BadRequest(response);
     }
-
-    [HttpPost("inputs")]
-    public async Task<IActionResult> AddInput(FormStructureInputRequestDto formStructureInput)
-    {
-        var response = await formStructureService.AddInputAsync(formStructureInput);
-        return response.Success ? Ok(response) : BadRequest(response);
-    }
+    
 }

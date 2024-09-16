@@ -65,14 +65,19 @@ public class FormStructureService(IFormStructureRepository formStructureReposito
         var response = new BaseResponse();
         try
         {
-            var data = await formStructureRepository.GetAsync(id);
-            if (data is null)
+            var formStructureEntity = await formStructureRepository.GetAsync(id);
+            if (formStructureEntity is null)
             {
                 response.ErrorMessage = $"La estructura del formulario con el id {id} no fue encontrada";
                 return response;
             }
-
-            mapper.Map(formStructureRequestDto, data);
+            
+            var inputsDiscrepancy = formStructureRequestDto.Inputs.Where(
+                x => formStructureEntity.Id != x.Id).ToList();
+            
+            if (inputsDiscrepancy.Count != 0)
+                formStructureEntity.Inputs = mapper.Map<ICollection<InputEntity>>(inputsDiscrepancy);
+            
             await formStructureRepository.UpdateAsync();
             response.Success = true;
         }
@@ -100,19 +105,4 @@ public class FormStructureService(IFormStructureRepository formStructureReposito
         return response;
     }
 
-    public async Task<BaseResponse> AddInputAsync(FormStructureInputRequestDto formStructureInput)
-    {
-        var response = new BaseResponse();
-        try
-        {
-            await formStructureRepository.AddInput(formStructureInput.FormStructureId, formStructureInput.InputId);
-            response.Success = true;
-        }
-        catch (Exception e)
-        {
-            response.ErrorMessage = "No se pudo agregar el input a la estructura del formulario";
-        }
-
-        return response;
-    }
 }

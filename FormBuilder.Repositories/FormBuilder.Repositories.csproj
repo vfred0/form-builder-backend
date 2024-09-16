@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\FormBuilder.Dtos\FormBuilder.Dtos.csproj" />
         <ProjectReference Include="..\FormBuilder.Persistence\FormBuilder.Persistence.csproj"/>
         <ProjectReference Include="..\FormBuilder.Entities\FormBuilder.Entities.csproj"/>
     </ItemGroup>

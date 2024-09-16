@@ -11,15 +11,7 @@ public abstract class Repository<TEntity>(DbContext dbContext) : IRepository<TEn
         return await dbContext.Set<TEntity>()
             .FindAsync(id);
     }
-
-    public virtual async Task<string> AddAsync(TEntity entity)
-    {
-        await dbContext.Set<TEntity>()
-            .AddAsync(entity);
-        await dbContext.SaveChangesAsync();
-        return entity.Id;
-    }
-
+    
     public async Task DeleteAsync(string id)
     {
         var item = await GetAsync(id);
@@ -30,7 +22,7 @@ public abstract class Repository<TEntity>(DbContext dbContext) : IRepository<TEn
             await dbContext.SaveChangesAsync();
         }
     }
-
+    
     public virtual async Task UpdateAsync()
     {
         await dbContext.SaveChangesAsync();
