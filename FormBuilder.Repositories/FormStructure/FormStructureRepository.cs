@@ -9,21 +9,17 @@ namespace FormBuilder.Repositories.FormStructure;
 public class FormStructureRepository(ApplicationDbContext dbContext)
     : Repository<FormStructureEntity>(dbContext), IFormStructureRepository
 {
-    public Task AddInput(string formStructureId, string inputId)
-    {
-        var formStructure = dbContext.Set<FormStructureEntity>().Find(formStructureId);
-        var input = dbContext.Set<InputEntity>().Find(inputId);
-        if (input != null) formStructure?.Inputs.Add(input);
-        dbContext.SaveChanges();
-        return Task.CompletedTask;
-    }
-
     public Task<List<FormStructureEntity>> GetAsync()
     {
         return dbContext.Set<FormStructureEntity>()
             .Include(x => x.Inputs)
             .AsNoTracking()
             .ToListAsync();
+    }
+
+    public Task<FormStructureEntity> GetAsync(string id)
+    {
+        return dbContext.Set<FormStructureEntity>().FindAsync(id).AsTask()!;
     }
 
     public Task<string> AddAsync(FormStructureEntity formStructure)
@@ -36,10 +32,32 @@ public class FormStructureRepository(ApplicationDbContext dbContext)
         dbContext.SaveChanges();
         return Task.FromResult(formStructure.Id);
     }
-    
-    public Task UpdateAsync(string id, FormStructureEntity formStructure)
+
+    public Task UpdateAsync(string id, FormStructureRequestDto formStructure)
     {
-        dbContext.Set<FormStructureEntity>().Update(formStructure);
+        var formStructureEntity = GetAsync(id).Result;
+        formStructureEntity.Name = formStructure.Name;
+        formStructureEntity.Description = formStructure.Description;
+        var formStructureInputs = dbContext.Set<FormStructureInputEntity>()
+            .Where(x => x.FormStructureId == id);
+        dbContext.Set<FormStructureInputEntity>().RemoveRange(formStructureInputs);
+        var newInputs = dbContext.Set<InputEntity>()
+            .Where(x => formStructure.Inputs.Select(y => y.Id).Contains(x.Id))
+            .ToList();
+        var newFormStructureInputs = newInputs.Select(input => new FormStructureInputEntity
+        {
+            FormStructureId = id,
+            InputId = input.Id
+        });
+        dbContext.Set<FormStructureInputEntity>().AddRange(newFormStructureInputs);
+        formStructureEntity.Inputs = newInputs;
+        dbContext.SaveChanges();
+        return Task.CompletedTask;
+    }
+
+    public Task DeleteAsync(string id)
+    {
+        dbContext.Set<FormStructureEntity>().Remove(GetAsync(id).Result);
         dbContext.SaveChanges();
         return Task.CompletedTask;
     }

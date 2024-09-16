@@ -14,14 +14,7 @@ public class InputController(IInputService inputService) : ControllerBase
         var response = await inputService.GetAsync();
         return response.Success ? Ok(response) : BadRequest(response);
     }
-
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Get(string id)
-    {
-        var response = await inputService.GetInputAsync(id);
-        return response.Success ? Ok(response) : BadRequest(response);
-    }
-
+    
     [HttpPost]
     public async Task<IActionResult> Post(InputRequestDto input)
     {

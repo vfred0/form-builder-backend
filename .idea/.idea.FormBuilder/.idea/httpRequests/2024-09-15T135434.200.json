@@ -1,0 +1,38 @@
+{
+  "data": [
+    {
+      "id": "03ab8531-5aec-44f8-b3d1-90379f5a2d6c",
+      "name": "Información de mascotas",
+      "description": "Formulario de información de mascotas",
+      "inputs": [
+        {
+          "id": "f9e4e897-9b85-43f0-8433-50a7108b8dd3",
+          "name": "Nombres",
+          "dataType": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "f9de9b3a-b635-4442-a2d3-e63129f38259",
+      "name": "Información Personal",
+      "description": "Formulario de información personal",
+      "inputs": [
+        {
+          "id": "f9e4e897-9b85-43f0-8433-50a7108b8dd3",
+          "name": "Nombres",
+          "dataType": "string",
+          "required": true
+        },
+        {
+          "id": "531dcb96-d6b1-43cd-a0d1-ea55bfc510ff",
+          "name": "Correo",
+          "dataType": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "success": true,
+  "errorMessage": null
+}

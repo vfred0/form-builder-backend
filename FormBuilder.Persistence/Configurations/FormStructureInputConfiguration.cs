@@ -8,5 +8,6 @@ public class FormStructureInputConfiguration : IEntityTypeConfiguration<FormStru
 {
     public void Configure(EntityTypeBuilder<FormStructureInputEntity> builder)
     {
+        builder.HasKey(x => new { x.FormStructureId, x.InputId });
     }
 }

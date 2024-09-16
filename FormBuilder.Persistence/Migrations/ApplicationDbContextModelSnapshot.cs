@@ -43,20 +43,16 @@ namespace FormBuilder.Persistence.Migrations
 
             modelBuilder.Entity("FormBuilder.Entities.FormStructureInputEntity", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
                     b.Property<string>("FormStructureId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("InputId")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    b.HasIndex("FormStructureId");
+                    b.HasKey("FormStructureId", "InputId");
 
                     b.HasIndex("InputId");
 

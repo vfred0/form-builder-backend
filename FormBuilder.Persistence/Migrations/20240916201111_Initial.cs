@@ -5,7 +5,7 @@
 namespace FormBuilder.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class FixedGuid : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,13 +41,13 @@ namespace FormBuilder.Persistence.Migrations
                 name: "FormStructureInputEntity",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
                     FormStructureId = table.Column<string>(type: "text", nullable: false),
-                    InputId = table.Column<string>(type: "text", nullable: false)
+                    InputId = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FormStructureInputEntity", x => x.Id);
+                    table.PrimaryKey("PK_FormStructureInputEntity", x => new { x.FormStructureId, x.InputId });
                     table.ForeignKey(
                         name: "FK_FormStructureInputEntity_FormStructureEntity_FormStructureId",
                         column: x => x.FormStructureId,
@@ -61,11 +61,6 @@ namespace FormBuilder.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormStructureInputEntity_FormStructureId",
-                table: "FormStructureInputEntity",
-                column: "FormStructureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FormStructureInputEntity_InputId",

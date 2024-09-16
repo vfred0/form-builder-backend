@@ -25,23 +25,6 @@ public class InputService(IInputRepository inputRepository, IMapper mapper) : II
         return response;
     }
 
-    public async Task<GenericBaseResponseDto<InputResponseDto>> GetInputAsync(string id)
-    {
-        var response = new GenericBaseResponseDto<InputResponseDto>();
-        try
-        {
-            var data = await inputRepository.GetAsync(id);
-            response.Data = mapper.Map<InputResponseDto>(data);
-            response.Success = data != null;
-        }
-        catch (Exception ex)
-        {
-            response.ErrorMessage = "No se pudo obtener obtener el input";
-        }
-
-        return response;
-    }
-
     public async Task<GenericBaseResponseDto<string>> AddAsync(InputRequestDto inputRequestDto)
     {
         var response = new GenericBaseResponseDto<string>();
@@ -63,13 +46,6 @@ public class InputService(IInputRepository inputRepository, IMapper mapper) : II
         var response = new BaseResponse();
         try
         {
-            var data = await inputRepository.GetAsync(id);
-            if (data is null)
-            {
-                response.ErrorMessage = $"El input con el id {id} no fue encontrado";
-                return response;
-            }
-            // mapper.Map(inputRequestDto, data);
             await inputRepository.UpdateAsync(id, inputRequestDto);
             response.Success = true;
         }

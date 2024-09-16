@@ -25,23 +25,7 @@ public class FormStructureService(IFormStructureRepository formStructureReposito
 
         return response;
     }
-
-    public async Task<GenericBaseResponseDto<FormStructureResponseDto>> GetFormStructureAsync(string id)
-    {
-        var response = new GenericBaseResponseDto<FormStructureResponseDto>();
-        try
-        {
-            var data = await formStructureRepository.GetAsync(id);
-            response.Data = mapper.Map<FormStructureResponseDto>(data);
-            response.Success = data != null;
-        }
-        catch (Exception ex)
-        {
-            response.ErrorMessage = "No se pudo obtener la estructura del formulario";
-        }
-
-        return response;
-    }
+    
 
     public async Task<GenericBaseResponseDto<string>> AddAsync(FormStructureRequestDto formStructureRequestDto)
     {
@@ -65,20 +49,7 @@ public class FormStructureService(IFormStructureRepository formStructureReposito
         var response = new BaseResponse();
         try
         {
-            var formStructureEntity = await formStructureRepository.GetAsync(id);
-            if (formStructureEntity is null)
-            {
-                response.ErrorMessage = $"La estructura del formulario con el id {id} no fue encontrada";
-                return response;
-            }
-            
-            var inputsDiscrepancy = formStructureRequestDto.Inputs.Where(
-                x => formStructureEntity.Id != x.Id).ToList();
-            
-            if (inputsDiscrepancy.Count != 0)
-                formStructureEntity.Inputs = mapper.Map<ICollection<InputEntity>>(inputsDiscrepancy);
-            
-            await formStructureRepository.UpdateAsync();
+            await formStructureRepository.UpdateAsync(id, formStructureRequestDto);
             response.Success = true;
         }
         catch (Exception ex)
@@ -104,5 +75,4 @@ public class FormStructureService(IFormStructureRepository formStructureReposito
 
         return response;
     }
-
 }

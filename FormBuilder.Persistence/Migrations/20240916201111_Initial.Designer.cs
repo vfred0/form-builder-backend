@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FormBuilder.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240916033739_FixedGuid")]
-    partial class FixedGuid
+    [Migration("20240916201111_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,20 +46,16 @@ namespace FormBuilder.Persistence.Migrations
 
             modelBuilder.Entity("FormBuilder.Entities.FormStructureInputEntity", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
                     b.Property<string>("FormStructureId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("InputId")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    b.HasIndex("FormStructureId");
+                    b.HasKey("FormStructureId", "InputId");
 
                     b.HasIndex("InputId");
 

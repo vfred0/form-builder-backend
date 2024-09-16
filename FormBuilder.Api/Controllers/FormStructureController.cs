@@ -15,13 +15,6 @@ public class FormStructureController(IFormStructureService formStructureService)
         return response.Success ? Ok(response) : BadRequest(response);
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Get(string id)
-    {
-        var response = await formStructureService.GetFormStructureAsync(id);
-        return response.Success ? Ok(response) : BadRequest(response);
-    }
-
     [HttpPost]
     public async Task<IActionResult> Post(FormStructureRequestDto formStructure)
     {
@@ -42,5 +35,4 @@ public class FormStructureController(IFormStructureService formStructureService)
         var response = await formStructureService.DeleteAsync(id);
         return response.Success ? Ok(response) : BadRequest(response);
     }
-    
 }
