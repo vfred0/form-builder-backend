@@ -9,7 +9,7 @@ public class InputProfile : Profile
 {
     public InputProfile()
     {
-        CreateMap<InputEntity, InputResponseDto>();
-        CreateMap<InputRequestDto, InputEntity>();
+        CreateMap<InputEntity, InputDto>();
+        CreateMap<InputDto, InputEntity>();
     }
 }

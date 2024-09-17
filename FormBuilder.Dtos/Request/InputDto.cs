@@ -1,6 +1,6 @@
 namespace FormBuilder.Dtos.Request;
 
-public class InputRequestDto
+public class InputDto
 {
     public string Id { get; set; } = default!;
     public string Name { get; set; } = default!;

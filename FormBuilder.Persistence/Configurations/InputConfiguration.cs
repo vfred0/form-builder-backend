@@ -16,5 +16,9 @@ public class InputConfiguration : IEntityTypeConfiguration<InputEntity>
             .IsRequired();
         builder.Property(x => x.Required)
             .IsRequired();
+        
+        // builder.Property(x => x.Value)
+        //     .HasMaxLength(50)
+        //     .IsRequired(required: false);
     }
 }

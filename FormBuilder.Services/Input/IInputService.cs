@@ -5,8 +5,8 @@ namespace FormBuilder.Services.Input;
 
 public interface IInputService
 {
-    Task<GenericBaseResponseDto<ICollection<InputResponseDto>>> GetAsync();
-    Task<GenericBaseResponseDto<string>> AddAsync(InputRequestDto inputRequestDto);
-    Task<BaseResponse> UpdateAsync(string id, InputRequestDto inputRequestDto);
+    Task<GenericBaseResponseDto<ICollection<InputDto>>> GetAsync();
+    Task<GenericBaseResponseDto<string>> AddAsync(InputDto inputDto);
+    Task<BaseResponse> UpdateAsync(string id, InputDto inputDto);
     Task<BaseResponse> DeleteAsync(string id);
 }

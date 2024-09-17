@@ -25,13 +25,14 @@ public class InputRepository(ApplicationDbContext dbContext) : Repository<InputE
         return Task.FromResult(map.Id);
     }
 
-    public Task UpdateAsync(string id, InputRequestDto inputRequestDto)
+    public Task UpdateAsync(string id, InputDto inputDto)
     {
         var inputEntity = dbContext.Set<InputEntity>().Find(id);
         if (inputEntity == null) return Task.CompletedTask;
-        inputEntity.Name = inputRequestDto.Name;
-        inputEntity.DataType = inputRequestDto.DataType;
-        inputEntity.Required = inputRequestDto.Required;
+        inputEntity.Name = inputDto.Name;
+        inputEntity.DataType = inputDto.DataType;
+        inputEntity.Required = inputDto.Required;
+        // inputEntity.Value = inputDto.Value;
         dbContext.Set<InputEntity>().Update(inputEntity);
         dbContext.SaveChanges();
         return Task.CompletedTask;

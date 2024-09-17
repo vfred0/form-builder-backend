@@ -22,14 +22,16 @@ public static class MigrationsConfiguration
         {
             Name = "Nombres",
             DataType = "string",
-            Required = true
+            Required = true,
+            // Value = "Juan"
         };
 
         var inputEmail = new InputEntity
         {
             Name = "Correo",
             DataType = "string",
-            Required = true
+            Required = true,
+            // Value = ""
         };
 
         var formStructurePersonal = new FormStructureEntity
