@@ -32,7 +32,6 @@ public class InputRepository(ApplicationDbContext dbContext) : Repository<InputE
         inputEntity.Name = inputDto.Name;
         inputEntity.DataType = inputDto.DataType;
         inputEntity.Required = inputDto.Required;
-        // inputEntity.Value = inputDto.Value;
         dbContext.Set<InputEntity>().Update(inputEntity);
         dbContext.SaveChanges();
         return Task.CompletedTask;

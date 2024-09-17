@@ -7,7 +7,6 @@ namespace FormBuilder.Repositories.Input;
 public interface IInputRepository : IRepository<InputEntity>
 {
     public Task<List<InputEntity>> GetAsync();
-    public Task<InputEntity> GetAsync(string id);
     Task<string> AddAsync(InputEntity map);
     Task UpdateAsync(string id, InputDto inputDto);
     Task DeleteAsync(string id);
