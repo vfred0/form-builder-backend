@@ -23,7 +23,6 @@ public static class MigrationsConfiguration
             Name = "Nombres",
             DataType = "string",
             Required = true,
-            // Value = "Juan"
         };
 
         var inputEmail = new InputEntity
@@ -31,7 +30,6 @@ public static class MigrationsConfiguration
             Name = "Correo",
             DataType = "string",
             Required = true,
-            // Value = ""
         };
 
         var formStructurePersonal = new FormStructureEntity
