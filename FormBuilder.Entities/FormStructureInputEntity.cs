@@ -6,4 +6,5 @@ public class FormStructureInputEntity : EntityBase
     public FormStructureEntity FormStructure { get; set; }
     public string InputId { get; set; }
     public InputEntity Input { get; set; }
+    public string Value { get; set; }
 }

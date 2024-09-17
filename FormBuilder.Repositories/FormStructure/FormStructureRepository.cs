@@ -9,12 +9,27 @@ namespace FormBuilder.Repositories.FormStructure;
 public class FormStructureRepository(ApplicationDbContext dbContext)
     : Repository<FormStructureEntity>(dbContext), IFormStructureRepository
 {
-    public Task<List<FormStructureEntity>> GetAsync()
+    public async Task<List<FormStructureEntity>> GetAsync()
     {
-        return dbContext.Set<FormStructureEntity>()
+        var formStructures = await dbContext.Set<FormStructureEntity>()
             .Include(x => x.Inputs)
             .AsNoTracking()
             .ToListAsync();
+
+        foreach (var formStructure in formStructures)
+        {
+            foreach (var input in formStructure.Inputs)
+            {
+                var formStructureInput = await dbContext.Set<FormStructureInputEntity>()
+                    .FirstOrDefaultAsync(fsi => fsi.FormStructureId == formStructure.Id && fsi.InputId == input.Id);
+                if (formStructureInput != null)
+                {
+                    input.Value = formStructureInput.Value;
+                }
+            }
+        }
+
+        return formStructures;
     }
 
     public Task<FormStructureEntity> GetAsync(string id)
@@ -47,7 +62,8 @@ public class FormStructureRepository(ApplicationDbContext dbContext)
         var newFormStructureInputs = newInputs.Select(input => new FormStructureInputEntity
         {
             FormStructureId = id,
-            InputId = input.Id
+            InputId = input.Id,
+            Value = formStructure.Inputs.First(x => x.Id == input.Id).Value
         });
         dbContext.Set<FormStructureInputEntity>().AddRange(newFormStructureInputs);
         formStructureEntity.Inputs = newInputs;
