@@ -1,3 +1,4 @@
+using System.Text.Json;
 using FormBuilder.Dtos.Request;
 using FormBuilder.Entities;
 using FormBuilder.Persistence;
@@ -32,7 +33,7 @@ public class FormStructureRepository(ApplicationDbContext dbContext)
         return formStructures;
     }
 
-    public Task<FormStructureEntity> GetAsync(string id)
+    private Task<FormStructureEntity> GetAsync(string id)
     {
         return dbContext.Set<FormStructureEntity>().FindAsync(id).AsTask()!;
     }
@@ -50,6 +51,7 @@ public class FormStructureRepository(ApplicationDbContext dbContext)
 
     public Task UpdateAsync(string id, FormStructureRequestDto formStructure)
     {
+        Console.WriteLine(JsonSerializer.Serialize(formStructure));
         var formStructureEntity = GetAsync(id).Result;
         formStructureEntity.Name = formStructure.Name;
         formStructureEntity.Description = formStructure.Description;
