@@ -7,4 +7,6 @@ public class InputDto
     public string DataType { get; set; } = default!;
     public bool Required { get; set; }
     public string Value { get; set; } = default!;
+    [JsonIgnore]
+    public string Value { get; set; } = string.Empty;
 }
